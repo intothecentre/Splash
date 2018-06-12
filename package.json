@@ -1,0 +1,28 @@
+{
+  "name": "splash",
+  "version": "2.0.0",
+  "description": "Splash Project using Node.js",
+  "main": "splash.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/intothecentre/Splash.git"
+  },
+  "keywords": [
+    "Node.js",
+    "Javascript"
+  ],
+  "author": "Aravind Pradeep",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/intothecentre/Splash/issues"
+  },
+  "homepage": "https://github.com/intothecentre/Splash#readme",
+  "dependencies": {
+    "date-and-time": "^0.6.2",
+    "log4js": "^2.8.0",
+    "mkdirp": "^0.5.1"
+  }
+}

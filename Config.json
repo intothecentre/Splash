@@ -1,0 +1,17 @@
+{
+    "SQLConnection":"Server=DELL\\SQLEXPRESS;Database=SplashScheduler;Connection Timeout=30",
+     "ClientName":"Node1",
+    "ClientID":"1",
+    "WorkingFolder":"/home/pi/Splash-Client/Working",
+    "UpdatesFolder":"/home/pi/Splash-Client/Updates",
+    "MediaFolder":"/home/pi/Splash-Client/Media",
+    "EnableRefresh":"true",
+    "UseLocalMedia":"false",
+    "ValidExtenstions":".ppt,.pptx,.html,.mov,.mpeg,.mpg,.mp4,.mp3,.wmv,.flv,.avi",
+    "TimeToWaitToLookForScheduleWhenNothingOnDislay":"150000",
+    "TimeToWaitToLookForUpdatesWhenFileOnDisplay" :"60000",
+    "UsePowerPointViewer" :"true",
+    "PowerPointViewerExePath":"D:\\Program Files (x86)\\Microsoft Office\\Office14\\PPTVIEW.EXE",
+    "BufferSize":"100000",
+	"Version":"2.0"
+	}
