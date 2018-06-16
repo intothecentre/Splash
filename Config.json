@@ -1,6 +1,6 @@
 {
     "SQLConnection":"Server=DELL\\SQLEXPRESS;Database=SplashScheduler;Connection Timeout=30",
-     "ClientName":"Node1",
+    "ClientName":"Node1",
     "ClientID":"1",
     "WorkingFolder":"/home/pi/Splash-Client/Working",
     "UpdatesFolder":"/home/pi/Splash-Client/Updates",
@@ -13,5 +13,9 @@
     "UsePowerPointViewer" :"true",
     "PowerPointViewerExePath":"D:\\Program Files (x86)\\Microsoft Office\\Office14\\PPTVIEW.EXE",
     "BufferSize":"100000",
-	"Version":"2.0"
-	}
+    "Version":"2.0",
+    "DBUser": "SplashUser",
+    "DBPassword": "Splash123!@#",
+    "Server": "192.168.0.113",
+    "Database": "SplashScheduler"
+}

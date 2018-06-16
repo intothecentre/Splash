@@ -22,7 +22,16 @@
   "homepage": "https://github.com/intothecentre/Splash#readme",
   "dependencies": {
     "date-and-time": "^0.6.2",
+    "express": "^4.16.3",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
     "log4js": "^2.8.0",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.1",
+    "mssql": "^4.1.0",
+    "process-exists": "^3.1.0",
+    "promise": "^8.0.1",
+    "ps-list": "^4.1.0",
+    "ps-node": "^0.1.6",
+    "tasklist": "^3.1.0"
   }
 }
