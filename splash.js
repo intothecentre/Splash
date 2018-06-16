@@ -5,6 +5,7 @@ const psList = require('ps-list');
 const psNode = require('ps-node');
 const process = require('process');
 const Promise = require('promise');
+const  { SplashDataAccess } = require("./SplashDataAccess.js");
 var fs = require('fs');
 
 let now = new Date();
@@ -23,10 +24,16 @@ log.info("Begin - Stop existing instances ");
 CheckingInstances().then(() => {
     log.info("Digital Signage Version : "+ config.Version+ " Running started at "+ date.format(now, 'YYYY/MM/DD HH:mm:ss') );
     CreateFolders();
-    var UseLocalMedia = Boolean(ShouldUseLocalMedia(config.ClientName) );
-    endOfProgram();    
+    console.log(config.ClientName);
+    SplashDataAccess.ShouldUseLocalMedia(config.ClientName).then((uselocalmedia) => {
+	var UseLocalMedia = Boolean(uselocalmedia);
+	endOfProgram(); 
+    }).catch((err) => {
+	log.error("Caught Exception SplashDataAccess.ShouldUseLocalMedia(config.ClientName): " + err.message);
+    });
+    
 }).catch((err) => {
-    log.error("Caught Exception points.getAllPointDetails(): " + err.message);
+    log.error("Couldnt access local media: " + err.message);
 });
 
 //function to check instances
@@ -91,7 +98,7 @@ function CreateFolders(){
 	    fs.mkdirSync(UpdatesDir);
 	    console.log('Updates Directory created');
 	}
-
+	
     }
     catch (e)
     {
@@ -99,19 +106,11 @@ function CreateFolders(){
     }
 }//End of function  CreateFolder();
 
-function  ShouldUseLocalMedia(ClientName)
-{
-    
-    
-    
-    
-    
-}//End of the function ShouldUseLocalMedia();
 
 function endOfProgram(){
-  while(true)
-  {
+    while(true)
+    {
   	//End of the program
-  }
+    }
 }
 
