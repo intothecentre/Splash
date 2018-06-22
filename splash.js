@@ -3,9 +3,15 @@ const config = require("./Config.json");
 const date = require('date-and-time');
 const psList = require('ps-list');
 const psNode = require('ps-node');
+const includes = require('array-includes');
 const process = require('process');
 const Promise = require('promise');
+const toLower = require('to-lower');
+const split = require('split-string');
+const fileExtension = require('file-extension'); 
 const  { SplashDataAccess } = require("./SplashDataAccess.js");
+const  { Helper } = require("./Helper.js");
+const { PlaySchedule } = require("./PlaySchedule.js");
 var fs = require('fs');
 
 let now = new Date();
@@ -27,7 +33,12 @@ CheckingInstances().then(() => {
     console.log(config.ClientName);
     SplashDataAccess.ShouldUseLocalMedia(config.ClientName).then((uselocalmedia) => {
 	var UseLocalMedia = Boolean(uselocalmedia);
-	endOfProgram(); 
+	SplashDataAccess.GetScheduleFileAndTime(config.ClientID,UseLocalMedia).then((playschedule) => {
+	    console.log(playschedule.FileName);
+	    endOfProgram(playschedule);
+	}).catch((err) => {
+	    log.error("Caught Exception SplashDataAccess.GetScheduleFileAndTime(): " + err.message);
+	});
     }).catch((err) => {
 	log.error("Caught Exception SplashDataAccess.ShouldUseLocalMedia(config.ClientName): " + err.message);
     });
@@ -106,11 +117,57 @@ function CreateFolders(){
     }
 }//End of function  CreateFolder();
 
+function ValidExtensions(){
+    var ValidExtensions = config.ValidExtenstions;
+    var validExtensions = ValidExtensions.split(",");
+    return validExtensions ;
+}// End of ValidExtensions();
 
-function endOfProgram(){
+
+function IsValidFileType(FileExt){
+    var Extensions = ValidExtensions();
+    return Extensions.includes(""+FileExt+"");
+}//End of function IsValidFileType(FileExt);
+
+
+function endOfProgram(ps){
     while(true)
     {
-  	//End of the program
-    }
-}
+	var HasSchedule;
+	if(ps=="NONE")
+	    HasSchedule=false;
+	else
+	    HasSchedule=true;
+	//console.log(HasSchedule);
+	if (HasSchedule)
+	{
+	    
+	    var FileExt = "."+toLower(fileExtension(ps.FileName));
+	    var IsValidExtension = IsValidFileType(FileExt);
+	     if (!IsValidExtension)
+                        {
+                            console.log("Invalid File Extension Detected .....Cannot run file");
+                            HasScheduele = false;
+                        }
+                        else
+                        {
+                            ps.Type = Helper.GetEventFileType(FileExt);
+			} 
+        }//End of if(HasSchedule)
+  	if (!HasSchedule)
+                    {
+                        //console.log("Starting Schedule for File: "+ ps.FileName+ at "+DateTime.Now );
+                        //StartSchedule(ps);
+                       // console.log("Completed Schedule for File: "+ ps.FileName+ at "+DateTime.Now );
+                    }//End of if(HasSchedule)
+	else
+	{
+	    SplashDataAccess.GetNextScheduledEventTime(config.ClientID).then((NextScheduleTime) => {
+		  console.log("1");
+	}).catch((err) => {
+	    log.error("Caught Exception  SplashDataAccess.GetNextScheduledEventTime(config.NodeID): " + err.message);
+	});
+	}//End of Else
+    }// End of While Loop
+}//End of EndOfPrograms
 
